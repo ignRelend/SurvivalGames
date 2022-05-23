@@ -10,3 +10,4 @@ arena:
   #  - "4;64;0;world"
   #  - "6;64;0;world"
   #allow-kits: true
+  start-amount: 3

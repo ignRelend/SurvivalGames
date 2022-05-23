@@ -2,12 +2,19 @@ package me.relend.survivalgames;
 
 import me.relend.survivalgames.listeners.*;
 import me.relend.survivalgames.manager.GameManager;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
 
 public class SurvivalGames extends JavaPlugin {
 
     private GameManager gameManager;
+    private FileConfiguration messagesConfig;
 
     @EventHandler
     public void onEnable() {
@@ -30,6 +37,7 @@ public class SurvivalGames extends JavaPlugin {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new BlocksListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerMoveListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
     }
 
     private void loadManagers() {
@@ -37,11 +45,33 @@ public class SurvivalGames extends JavaPlugin {
     }
 
     private void loadConfigs() {
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
 
+        createMessagesConfig();
+    }
+
+    private void createMessagesConfig() {
+        File messagesFile = new File(getDataFolder(), "messages.yml");
+        if (!messagesFile.exists()) {
+            messagesFile.getParentFile().mkdirs();
+            saveResource("messages.yml", false);
+        }
+
+        messagesConfig = new YamlConfiguration();
+        try {
+            messagesConfig.load(messagesFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
     }
 
     public GameManager getManager() {
         return gameManager;
+    }
+
+    public FileConfiguration getMessagesConfig() {
+        return this.messagesConfig;
     }
 
 }
