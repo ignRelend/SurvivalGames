@@ -2,7 +2,6 @@ package me.relend.survivalgames.manager;
 
 import me.relend.survivalgames.SurvivalGames;
 import me.relend.survivalgames.util.Util;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,6 +17,8 @@ public class GameManager {
 
     private ArrayList<Player> alive = new ArrayList<>();
     private ArrayList<Player> spectators = new ArrayList<>();
+
+    private boolean timerCancelled = false;
 
     public GameManager(SurvivalGames plugin) {
         this.plugin = plugin;
@@ -68,9 +69,13 @@ public class GameManager {
                             }
                             cancel();
                         }
+                        if (timerCancelled) {
+                            cancel();
+                        }
                         count--;
                     }
                 }.runTaskTimer(plugin, 0L, 20L);
+                timerCancelled = false;
                 // dont let players move
                 // give new players kit selector
                 break;
@@ -107,5 +112,9 @@ public class GameManager {
 
     public ArrayList<Player> getSpectators() {
         return spectators;
+    }
+
+    public void setTimerCancelled(boolean timerCancelled) {
+        this.timerCancelled = timerCancelled;
     }
 }
