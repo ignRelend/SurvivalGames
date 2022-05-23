@@ -1,0 +1,12 @@
+#-------------------------#
+# SurvivalGames by Relend #
+#-------------------------#
+
+arena:
+  #spawnpoints:
+  #  - "0;64;0;world"
+  #  - "0;64;2;world"
+  #chests:
+  #  - "4;64;0;world"
+  #  - "6;64;0;world"
+  #allow-kits: true
