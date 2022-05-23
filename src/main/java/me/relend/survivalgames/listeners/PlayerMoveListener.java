@@ -18,8 +18,10 @@ public class PlayerMoveListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (plugin.getManager().getGameState() == GameState.WAITING || plugin.getManager().getGameState() == GameState.COUNTDOWN) {
-            event.setCancelled(true);
-            event.getPlayer().sendMessage(Util.color("&cThe game has not started yet!"));
+            if (event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(Util.color("&cThe game has not started yet!"));
+            }
         }
     }
 

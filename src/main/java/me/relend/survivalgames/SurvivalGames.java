@@ -18,6 +18,8 @@ public class SurvivalGames extends JavaPlugin {
         getLogger().info("Loaded listeners!");
         loadManagers();
         getLogger().info("Loaded managers!");
+        loadConfigs();
+        getLogger().info("Loaded configs!");
         getLogger().info("=======================");
     }
 
@@ -32,6 +34,10 @@ public class SurvivalGames extends JavaPlugin {
 
     private void loadManagers() {
         gameManager = new GameManager(this);
+    }
+
+    private void loadConfigs() {
+
     }
 
     public GameManager getManager() {

@@ -8,7 +8,6 @@ public class BlockManager {
 
     public boolean canBreak(Material material) {
         ArrayList<Material> breakable = new ArrayList<>();
-        breakable.add(Material.TALL_GRASS);
         breakable.add(Material.GRASS);
 
         return breakable.contains(material);

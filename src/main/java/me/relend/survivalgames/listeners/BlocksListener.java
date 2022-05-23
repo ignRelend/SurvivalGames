@@ -17,7 +17,7 @@ public class BlocksListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if (plugin.getManager().getBlockManager().canBreak(event.getBlock().getType())) {
+        if (!plugin.getManager().getBlockManager().canBreak(event.getBlock().getType())) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(Util.color("&cYou cannot break this block!"));
         }
@@ -25,7 +25,7 @@ public class BlocksListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (plugin.getManager().getBlockManager().canBreak(event.getBlock().getType())) {
+        if (!plugin.getManager().getBlockManager().canPlace(event.getBlock().getType())) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(Util.color("&cYou cannot place this block!"));
         }
