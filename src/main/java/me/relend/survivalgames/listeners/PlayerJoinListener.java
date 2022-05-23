@@ -23,6 +23,8 @@ public class PlayerJoinListener implements Listener {
         if (plugin.getManager().getGameState() == GameState.WAITING || plugin.getManager().getGameState() == GameState.COUNTDOWN) {
             plugin.getManager().getAlive().add(event.getPlayer());
             plugin.getManager().getSpectators().remove(event.getPlayer());
+            event.getPlayer().setHealth(20.0);
+            event.getPlayer().setFoodLevel(20);
             event.getPlayer().setGameMode(GameMode.SURVIVAL);
             event.setJoinMessage(Util.color("&e" + event.getPlayer().getName() + " &7has joined the game! &2(&f" + plugin.getManager().getAlive().size() + "&a/&f" + plugin.getConfig().getInt("arena.start-amount") + "&2)"));
             if (plugin.getManager().getGameState() == GameState.WAITING) {
