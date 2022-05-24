@@ -1,9 +1,13 @@
 # SurvivalGames
 ## Todo List:
-- Everything
+- Winning logic
+- Other checks relating to the game
+- Touch ups
 
 ## Features:
-- Still working on the base game
+- Commands to add chests and spawnpoints
+- Config to change items in chests
+- 100% customizable messages
 
 ## Known Bugs:
 - Still working on the base game
