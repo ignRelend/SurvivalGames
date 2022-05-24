@@ -85,10 +85,7 @@ public class Util {
                 Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
                 player.teleport(location);
                 player.setGameMode(GameMode.SURVIVAL);
-                player.setHealth(20.0);
-                player.setFoodLevel(20);
-                player.setExp(0);
-                player.getInventory().clear();
+                resetPlayerStats(player);
                 plugin.getManager().getAlive().add(player);
                 return true;
             } else {
@@ -96,10 +93,7 @@ public class Util {
                 plugin.getManager().getSpectators().add(player);
                 player.sendMessage(Util.color("&cThere is not enough room for you! You are now a spectator."));
                 player.setGameMode(GameMode.SPECTATOR);
-                player.setHealth(20.0);
-                player.setFoodLevel(20);
-                player.setExp(0);
-                player.getInventory().clear();
+                resetPlayerStats(player);
                 return false;
             }
         } else {
@@ -107,11 +101,17 @@ public class Util {
             plugin.getManager().getSpectators().add(player);
             player.sendMessage(Util.color("&cThere is not enough room for you! You are now a spectator."));
             player.setGameMode(GameMode.SPECTATOR);
-            player.setHealth(20.0);
-            player.setFoodLevel(20);
-            player.setExp(0);
-            player.getInventory().clear();
+            resetPlayerStats(player);
             return false;
         }
+    }
+
+    public static void resetPlayerStats(Player player) {
+        player.setHealth(20.0);
+        player.setFoodLevel(20);
+        player.setExp(0);
+        player.getInventory().clear();
+        player.setAbsorptionAmount(0);
+        player.getActivePotionEffects().clear();
     }
 }
