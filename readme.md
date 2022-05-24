@@ -1,7 +1,13 @@
 # SurvivalGames
 ## Todo List:
 - Other checks relating to the game
-- Touch ups
+- Scoreboard with stats
+- Chest tiers
+- Chest refills
+- Deathmatch
+- Kits
+- Perks(?)
+- Coins system for kits and perks
 
 ## Features:
 - Commands to add chests and spawnpoints

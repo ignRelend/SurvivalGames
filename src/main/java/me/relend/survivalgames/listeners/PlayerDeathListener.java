@@ -24,7 +24,6 @@ public class PlayerDeathListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         if (plugin.getManager().getAlive().contains(event.getEntity())) {
             event.setDeathMessage(null);
-            event.getEntity().spigot().respawn();
             plugin.getManager().getSpectators().add(event.getEntity());
             plugin.getManager().getAlive().remove(event.getEntity());
             event.getEntity().setGameMode(GameMode.SPECTATOR);
