@@ -110,8 +110,8 @@ public class GameManager {
                     Chest chest = (Chest) location.getBlock().getState();
                     chest.getInventory().clear();
                 }
-
                 // roll back block placing and breaking
+                plugin.getServer().shutdown();
                 break;
         }
     }
