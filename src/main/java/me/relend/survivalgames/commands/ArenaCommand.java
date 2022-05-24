@@ -40,7 +40,7 @@ public class ArenaCommand implements CommandExecutor {
                         }
                     } else if (args[0].equalsIgnoreCase("addspawn")) {
                         try {
-                            String loc = player.getLocation().getX() + ";" + player.getLocation().getY() + ";" + player.getLocation().getZ() + ";" + player.getWorld().getName();
+                            String loc = Util.round(player.getLocation().getX(), 1) + ";" + Util.round(player.getLocation().getY(), 1) + ";" + Util.round(player.getLocation().getZ(), 1) + ";" + player.getWorld().getName();
                             List<String> spawnpoints = plugin.getConfig().getStringList("arena.spawnpoints");
                             spawnpoints.add(loc);
                             plugin.getConfig().set("arena.spawnpoints", spawnpoints);

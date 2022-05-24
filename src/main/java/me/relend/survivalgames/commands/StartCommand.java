@@ -30,7 +30,6 @@ public class StartCommand implements CommandExecutor {
             } else {
                 if (plugin.getManager().getGameState() == GameState.WAITING) {
                     plugin.getManager().setGameState(GameState.COUNTDOWN);
-                    plugin.getManager().setTimerCancelled(true);
                 } else {
                     sender.sendMessage(Util.color("&cYou cannot do this right now!"));
                 }

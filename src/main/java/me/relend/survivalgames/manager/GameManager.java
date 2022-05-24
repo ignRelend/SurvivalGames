@@ -101,8 +101,17 @@ public class GameManager {
                 // dont let players fight
                 break;
             case RESETTING:
-                // reset worlds
-                // send players to hub
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    p.kickPlayer("The game has ended!");
+                }
+                for (String s : plugin.getConfig().getStringList("arena.chests")) {
+                    String[] loc = s.split(";");
+                    Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
+                    Chest chest = (Chest) location.getBlock().getState();
+                    chest.getInventory().clear();
+                }
+
+                // roll back block placing and breaking
                 break;
         }
     }
