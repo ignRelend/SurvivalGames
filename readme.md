@@ -18,4 +18,5 @@
 - Still working on the base game
 
 ### Support:
-Please DM `Relend#3382` on Discord for support
+Only version 1.18.2 is supported. Any other version is use at your own risk.
+Please DM `Relend#3382` on Discord for support!
