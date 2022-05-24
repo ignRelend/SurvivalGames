@@ -35,7 +35,7 @@ public class StartCommand implements CommandExecutor {
                 }
             }
         } else {
-            sender.sendMessage(Util.color("&cNo permission."));
+            sender.sendMessage(Util.color(plugin.getConfig().getString("no-permission")));
         }
         return false;
     }

@@ -27,11 +27,15 @@ public class ArenaCommand implements CommandExecutor {
                         if (player.getTargetBlock(null, 3).getType().equals(Material.CHEST)) {
                             try {
                                 String loc = player.getTargetBlock(null, 3).getX() + ";" + player.getTargetBlock(null, 3).getY() + ";" + player.getTargetBlock(null, 3).getZ() + ";" + player.getWorld().getName();
-                                List<String> chests = plugin.getConfig().getStringList("arena.chests");
-                                chests.add(loc);
-                                plugin.getConfig().set("arena.chests", chests);
-                                plugin.saveConfig();
-                                player.sendMessage(Util.color("&aAdded the chest to the arena at location &2" + loc + "&a!"));
+                                if (!plugin.getConfig().getStringList("arena.chests").contains(loc)) {
+                                    List<String> chests = plugin.getConfig().getStringList("arena.chests");
+                                    chests.add(loc);
+                                    plugin.getConfig().set("arena.chests", chests);
+                                    plugin.saveConfig();
+                                    player.sendMessage(Util.color("&aAdded the chest to the arena at location &2" + loc + "&a!"));
+                                } else {
+                                    player.sendMessage(Util.color("&cThis chest is already added to the arena!"));
+                                }
                             } catch (Exception e) {
                                 player.sendMessage(Util.color("&cError adding the chest to the arena!"));
                             }
@@ -41,23 +45,27 @@ public class ArenaCommand implements CommandExecutor {
                     } else if (args[0].equalsIgnoreCase("addspawn")) {
                         try {
                             String loc = Util.round(player.getLocation().getX(), 1) + ";" + Util.round(player.getLocation().getY(), 1) + ";" + Util.round(player.getLocation().getZ(), 1) + ";" + player.getWorld().getName();
-                            List<String> spawnpoints = plugin.getConfig().getStringList("arena.spawnpoints");
-                            spawnpoints.add(loc);
-                            plugin.getConfig().set("arena.spawnpoints", spawnpoints);
-                            plugin.saveConfig();
-                            player.sendMessage(Util.color("&aAdded the spawnpoint to the arena at location &2" + loc + "&a!"));
+                            if (plugin.getConfig().getStringList("arena.spawnpoints").contains(loc)) {
+                                List<String> spawnpoints = plugin.getConfig().getStringList("arena.spawnpoints");
+                                spawnpoints.add(loc);
+                                plugin.getConfig().set("arena.spawnpoints", spawnpoints);
+                                plugin.saveConfig();
+                                player.sendMessage(Util.color("&aAdded the spawnpoint to the arena at location &2" + loc + "&a!"));
+                            } else {
+                                player.sendMessage(Util.color("&cThis spawnpoint is already added to the arena!"));
+                            }
                         } catch (Exception e) {
                             player.sendMessage(Util.color("&cError adding the spawnpoint to the arena!"));
                         }
                     } else {
-                        player.sendMessage("&c/arena <addspawn|addchest>");
+                        player.sendMessage(Util.color("&c/arena <addspawn|addchest>"));
                     }
                 }
             } else {
-                player.sendMessage(Util.color("&cNo permission."));
+                player.sendMessage(Util.color(plugin.getConfig().getString("no-permission")));
             }
         } else {
-            System.out.println("This command is only available to players!");
+            System.out.println(Util.color(plugin.getConfig().getString("players-only")));
         }
         return false;
     }
