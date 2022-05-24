@@ -3,11 +3,14 @@
 #-------------------------#
 
 arena:
-  #spawnpoints:
-  #  - "0;64;0;world"
-  #  - "0;64;2;world"
-  #chests:
-  #  - "4;64;0;world"
-  #  - "6;64;0;world"
-  #allow-kits: true
+  spawnpoints:
+    - "268.5;26;-0.5;world"
+  chests:
+    - "269;28;11;world"
+  allow-kits: true
   start-amount: 3
+
+chest-items:
+  - "bow:1"
+  - "stone_sword:1"
+  - "arrow:3"

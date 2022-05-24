@@ -2,7 +2,10 @@ package me.relend.survivalgames.manager;
 
 import me.relend.survivalgames.SurvivalGames;
 import me.relend.survivalgames.util.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -80,6 +83,12 @@ public class GameManager {
                 // give new players kit selector
                 break;
             case IN_GAME:
+                for (String s : plugin.getConfig().getStringList("arena.chests")) {
+                    String[] loc = s.split(";");
+                    Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
+                    Chest chest = (Chest) location.getBlock().getState();
+                    Util.fillChest(chest);
+                }
                 Util.broadcastAlive(Util.color("&a&lThe game has started!"));
                 Util.sendTitleAlive("&a&lGO!", "The game has started!", 5, 50, 5);
                 Util.playSoundAlive(Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 4f);

@@ -1,5 +1,6 @@
 package me.relend.survivalgames;
 
+import me.relend.survivalgames.commands.ArenaCommand;
 import me.relend.survivalgames.commands.StartCommand;
 import me.relend.survivalgames.commands.StartCompleter;
 import me.relend.survivalgames.listeners.*;
@@ -35,6 +36,7 @@ public class SurvivalGames extends JavaPlugin {
     private void registerCommands() {
         getCommand("start").setExecutor(new StartCommand(this));
         getCommand("start").setTabCompleter(new StartCompleter());
+        getCommand("arena").setExecutor(new ArenaCommand(this));
     }
 
     private void registerListeners() {
