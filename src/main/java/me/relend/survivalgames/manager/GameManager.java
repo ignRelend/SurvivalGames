@@ -9,6 +9,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -134,7 +135,7 @@ public class GameManager {
                     loc.getBlock().setType(getBlockManager().getBrockenBlocks().get(loc));
                 }
                 for (Entity entity : Bukkit.getWorld(plugin.getConfig().getString("arena.world")).getEntities()) {
-                    if (entity instanceof Item) {
+                    if (entity.getType().equals(EntityType.DROPPED_ITEM)) {
                         entity.remove();
                     }
                 }
