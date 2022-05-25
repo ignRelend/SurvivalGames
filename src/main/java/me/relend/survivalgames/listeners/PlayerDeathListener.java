@@ -5,6 +5,7 @@ import me.relend.survivalgames.manager.GameState;
 import me.relend.survivalgames.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +25,7 @@ public class PlayerDeathListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         if (plugin.getManager().getAlive().contains(event.getEntity())) {
             event.setDeathMessage(null);
+            Location deathLoc = event.getEntity().getLocation();
             plugin.getManager().getSpectators().add(event.getEntity());
             plugin.getManager().getAlive().remove(event.getEntity());
             event.getEntity().setGameMode(GameMode.SPECTATOR);
@@ -33,6 +35,7 @@ public class PlayerDeathListener implements Listener {
             } else {
                 Util.broadcastAll(Util.color("&c" + event.getEntity().getName() + " &7has died!"));
             }
+            event.getEntity().teleport(deathLoc);
         }
         if (plugin.getManager().getAlive().size() <= 1) {
             plugin.getManager().setGameState(GameState.FINISH);
