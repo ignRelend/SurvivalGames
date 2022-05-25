@@ -23,14 +23,14 @@ public class ArenaCommand implements CommandExecutor {
         if (sender instanceof Player player) {
             if (player.hasPermission("survivalgames.arena")) {
                 if (args.length >= 1) {
-                    if (args[0].equalsIgnoreCase("addchest")) {
+                    if (args[0].equalsIgnoreCase("addchestt1")) {
                         if (player.getTargetBlock(null, 3).getType().equals(Material.CHEST)) {
                             try {
                                 String loc = player.getTargetBlock(null, 3).getX() + ";" + player.getTargetBlock(null, 3).getY() + ";" + player.getTargetBlock(null, 3).getZ() + ";" + player.getWorld().getName();
-                                if (!plugin.getConfig().getStringList("arena.chests").contains(loc)) {
-                                    List<String> chests = plugin.getConfig().getStringList("arena.chests");
+                                if (!plugin.getConfig().getStringList("arena.chests.tier-1").contains(loc)) {
+                                    List<String> chests = plugin.getConfig().getStringList("arena.chests.tier-1");
                                     chests.add(loc);
-                                    plugin.getConfig().set("arena.chests", chests);
+                                    plugin.getConfig().set("arena.chests.tier-1", chests);
                                     plugin.saveConfig();
                                     player.sendMessage(Util.color("&aAdded the chest to the arena at location &2" + loc + "&a!"));
                                 } else {
@@ -42,7 +42,48 @@ public class ArenaCommand implements CommandExecutor {
                         } else {
                             player.sendMessage(Util.color("&cYou are not looking at a chest!"));
                         }
-                    } else if (args[0].equalsIgnoreCase("addspawn")) {
+                    }
+                    if (args[0].equalsIgnoreCase("addchestt2")) {
+                        if (player.getTargetBlock(null, 3).getType().equals(Material.CHEST)) {
+                            try {
+                                String loc = player.getTargetBlock(null, 3).getX() + ";" + player.getTargetBlock(null, 3).getY() + ";" + player.getTargetBlock(null, 3).getZ() + ";" + player.getWorld().getName();
+                                if (!plugin.getConfig().getStringList("arena.chests.tier-2").contains(loc)) {
+                                    List<String> chests = plugin.getConfig().getStringList("arena.chests.tier-2");
+                                    chests.add(loc);
+                                    plugin.getConfig().set("arena.chests.tier-2", chests);
+                                    plugin.saveConfig();
+                                    player.sendMessage(Util.color("&aAdded the chest to the arena at location &2" + loc + "&a!"));
+                                } else {
+                                    player.sendMessage(Util.color("&cThis chest is already added to the arena!"));
+                                }
+                            } catch (Exception e) {
+                                player.sendMessage(Util.color("&cError adding the chest to the arena!"));
+                            }
+                        } else {
+                            player.sendMessage(Util.color("&cYou are not looking at a chest!"));
+                        }
+                    }
+                    if (args[0].equalsIgnoreCase("addchestt3")) {
+                        if (player.getTargetBlock(null, 3).getType().equals(Material.CHEST)) {
+                            try {
+                                String loc = player.getTargetBlock(null, 3).getX() + ";" + player.getTargetBlock(null, 3).getY() + ";" + player.getTargetBlock(null, 3).getZ() + ";" + player.getWorld().getName();
+                                if (!plugin.getConfig().getStringList("arena.chests.tier-3").contains(loc)) {
+                                    List<String> chests = plugin.getConfig().getStringList("arena.chests.tier-3");
+                                    chests.add(loc);
+                                    plugin.getConfig().set("arena.chests.tier-3", chests);
+                                    plugin.saveConfig();
+                                    player.sendMessage(Util.color("&aAdded the chest to the arena at location &2" + loc + "&a!"));
+                                } else {
+                                    player.sendMessage(Util.color("&cThis chest is already added to the arena!"));
+                                }
+                            } catch (Exception e) {
+                                player.sendMessage(Util.color("&cError adding the chest to the arena!"));
+                            }
+                        } else {
+                            player.sendMessage(Util.color("&cYou are not looking at a chest!"));
+                        }
+                    }
+                    else if (args[0].equalsIgnoreCase("addspawn")) {
                         try {
                             String loc = Util.round(player.getLocation().getX(), 1) + ";" + Util.round(player.getLocation().getY(), 1) + ";" + Util.round(player.getLocation().getZ(), 1) + ";" + player.getWorld().getName();
                             if (plugin.getConfig().getStringList("arena.spawnpoints").contains(loc)) {

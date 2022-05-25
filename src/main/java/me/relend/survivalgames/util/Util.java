@@ -6,6 +6,7 @@ import org.bukkit.*;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -55,9 +56,9 @@ public class Util {
         }
     }
 
-    public static void fillChest(Chest chest) {
+    public static void fillChest(Chest chest, int tier) {
         ArrayList<ItemStack> items = new ArrayList<>();
-        for (String s : plugin.getConfig().getStringList("chest-items")) {
+        for (String s : plugin.getConfig().getStringList("chest-items.tier-" + tier)) {
             String[] item = s.split(":");
             items.add(new ItemStack(Material.valueOf(item[0].toUpperCase()), Integer.parseInt(item[1])));
         }
@@ -87,6 +88,13 @@ public class Util {
                 player.setGameMode(GameMode.SURVIVAL);
                 resetPlayerStats(player);
                 plugin.getManager().getAlive().add(player);
+                if (plugin.getConfig().getBoolean("arena.allow-kits")) {
+                    ItemStack kitsSelector = new ItemStack(Material.BOW);
+                    ItemMeta kitsMeta = kitsSelector.getItemMeta();
+                    kitsMeta.setDisplayName(Util.color("&aKit Selector"));
+                    kitsSelector.setItemMeta(kitsMeta);
+                    player.getInventory().setItem(0, kitsSelector);
+                }
                 return true;
             } else {
                 // not enough space / add to spectator

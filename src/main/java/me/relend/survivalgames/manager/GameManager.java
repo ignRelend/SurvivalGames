@@ -98,11 +98,26 @@ public class GameManager {
                 // give new players kit selector
                 break;
             case IN_GAME:
-                for (String s : plugin.getConfig().getStringList("arena.chests")) {
+                for (Player p : getAlive()) {
+                    Util.resetPlayerStats(p);
+                }
+                for (String s : plugin.getConfig().getStringList("arena.chests.tier-1")) {
                     String[] loc = s.split(";");
                     Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
                     Chest chest = (Chest) location.getBlock().getState();
-                    Util.fillChest(chest);
+                    Util.fillChest(chest, 1);
+                }
+                for (String s : plugin.getConfig().getStringList("arena.chests.tier-2")) {
+                    String[] loc = s.split(";");
+                    Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
+                    Chest chest = (Chest) location.getBlock().getState();
+                    Util.fillChest(chest, 2);
+                }
+                for (String s : plugin.getConfig().getStringList("arena.chests.tier-3")) {
+                    String[] loc = s.split(";");
+                    Location location = new Location(Bukkit.getWorld(loc[3]), Double.parseDouble(loc[0]), Double.parseDouble(loc[1]), Double.parseDouble(loc[2]));
+                    Chest chest = (Chest) location.getBlock().getState();
+                    Util.fillChest(chest, 3);
                 }
                 Util.broadcastAlive(Util.color("&a&lThe game has started!"));
                 Util.sendTitleAlive("&a&lGO!", "The game has started!", 5, 50, 5);
@@ -135,7 +150,7 @@ public class GameManager {
                     loc.getBlock().setType(getBlockManager().getBrockenBlocks().get(loc));
                 }
                 for (Entity entity : Bukkit.getWorld(plugin.getConfig().getString("arena.world")).getEntities()) {
-                    if (entity.getType().equals(EntityType.DROPPED_ITEM)) {
+                    if (entity.getType().equals(EntityType.DROPPED_ITEM) || entity.getType().equals(EntityType.ARROW)) {
                         entity.remove();
                     }
                 }

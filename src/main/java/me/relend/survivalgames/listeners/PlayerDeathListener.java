@@ -3,16 +3,12 @@ package me.relend.survivalgames.listeners;
 import me.relend.survivalgames.SurvivalGames;
 import me.relend.survivalgames.manager.GameState;
 import me.relend.survivalgames.util.Util;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-
 public class PlayerDeathListener implements Listener {
 
     private final SurvivalGames plugin;

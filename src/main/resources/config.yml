@@ -7,20 +7,59 @@ arena:
   spawnpoints:
     - "268.5;26;-0.5;world"
   chests:
-    - "269;28;11;world"
+    tier-1:
+      - "269;28;11;world"
+    tier-2:
+      - ""
+    tier-3:
+      - ""
   allow-kits: true
   players-required-start: 3
 
 chest-items:
-  - bow:1
-  - stone_sword:1
-  - arrow:3
-  - golden_apple:1
-  - leather_helmet:1
-  - leather_chestplate:1
-  - leather_leggings:1
-  - leather_boots:1
-  - wooden_axe:1
-  - chainmail_boots:1
-  - chainmail_helmet:1
-  - cooked_beef:4
+  tier-1:
+    - bow:1
+    - stone_sword:1
+    - arrow:3
+    - golden_apple:1
+    - leather_helmet:1
+    - leather_chestplate:1
+    - leather_leggings:1
+    - leather_boots:1
+    - wooden_axe:1
+    - chainmail_boots:1
+    - chainmail_helmet:1
+    - cooked_beef:4
+  tier-2:
+    - bow:1
+    - stone_sword:1
+    - arrow:3
+    - golden_apple:1
+    - leather_helmet:1
+    - leather_chestplate:1
+    - leather_leggings:1
+    - leather_boots:1
+    - wooden_axe:1
+    - chainmail_boots:1
+    - chainmail_helmet:1
+    - cooked_beef:4
+    - iron_sword:1
+    - iron_chestplate:1
+    - iron_leggings:1
+  tier-3:
+    - bow:1
+    - stone_sword:1
+    - arrow:3
+    - golden_apple:1
+    - leather_helmet:1
+    - leather_chestplate:1
+    - leather_leggings:1
+    - leather_boots:1
+    - wooden_axe:1
+    - chainmail_boots:1
+    - chainmail_helmet:1
+    - cooked_beef:4
+    - iron_sword:1
+    - iron_chestplate:1
+    - iron_leggings:1
+    - diamond_sword

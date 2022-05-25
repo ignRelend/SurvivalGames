@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ArenaCompleter implements TabCompleter {
 
-    private static final String[] tabcompletion = {"addspawn", "addchest"};
+    private static final String[] tabcompletion = {"addspawn", "addchestt1", "addchestt2", "addchestt3"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
