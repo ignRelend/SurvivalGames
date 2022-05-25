@@ -4,6 +4,7 @@ import me.relend.survivalgames.SurvivalGames;
 import me.relend.survivalgames.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
@@ -52,23 +53,22 @@ public class GameManager {
                         for (int item : message) {
                             if (item == count) {
                                 if (item == 3) {
-                                    Util.sendTitleAlive("&a3", "", 3, 14, 3);
+                                    Util.sendTitleAll("&a3", "", 3, 14, 3);
                                 } else if (item == 2) {
-                                    Util.sendTitleAlive("&e2", "", 3, 14, 3);
+                                    Util.sendTitleAll("&e2", "", 3, 14, 3);
+                                } else if (item == 1) {
+                                    Util.sendTitleAll("&c1", "", 3, 14, 3);
                                 }
-                                else if (item == 1) {
-                                    Util.sendTitleAlive("&c1", "", 3, 14, 3);
-                                }
-                                Util.broadcastAlive(Util.color("&aThe game is starting in &e" + item + " &aseconds!"));
+                                Util.broadcastAll(Util.color("&aThe game is starting in &e" + item + " &aseconds!"));
                                 Util.playSoundAlive(Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                             }
                         }
                         if (count <= 0) {
-                            if (alive.size() >= plugin.getConfig().getInt("arena.start-amount")) {
+                            if (alive.size() >= plugin.getConfig().getInt("arena.players-required-start")) {
                                 setGameState(GameState.IN_GAME);
                             } else {
                                 setGameState(GameState.WAITING);
-                                Util.broadcastAlive(Util.color("&c&lNot enough players to start!"));
+                                Util.broadcastAll(Util.color("&c&lNot enough players to start!"));
                             }
                             cancel();
                         }
@@ -96,9 +96,12 @@ public class GameManager {
                 // let players move and fight
                 break;
             case FINISH:
-                // display winning text
-                // send winning chat message
-                // dont let players fight
+                BukkitTask reset = new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        plugin.getManager().setGameState(GameState.RESETTING);
+                    }
+                }.runTaskLater(plugin, 100);
                 break;
             case RESETTING:
                 for (Player p : Bukkit.getOnlinePlayers()) {
@@ -110,7 +113,12 @@ public class GameManager {
                     Chest chest = (Chest) location.getBlock().getState();
                     chest.getInventory().clear();
                 }
-                // roll back block placing and breaking
+                for (Location loc : getBlockManager().getPlacedBlocks().keySet()) {
+                    loc.getBlock().setType(Material.AIR);
+                }
+                for (Location loc : getBlockManager().getBrockenBlocks().keySet()) {
+                    loc.getBlock().setType(getBlockManager().getBrockenBlocks().get(loc));
+                }
                 plugin.getServer().shutdown();
                 break;
         }

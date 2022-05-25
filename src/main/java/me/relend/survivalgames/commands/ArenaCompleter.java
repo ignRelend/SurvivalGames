@@ -10,13 +10,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class StartCompleter implements TabCompleter {
+public class ArenaCompleter implements TabCompleter {
 
-    private static final String[] tabcompletion = {"force"};
+    private static final String[] tabcompletion = {"addspawn", "addchest"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        if (args.length == 1 && sender.hasPermission("survivalgames.start")) {
+        if (args.length == 1 && sender.hasPermission("survivalgames.arena")) {
             //create new array
             List<String> completions = new ArrayList<>();
             //copy matches of first argument from list (ex: if first arg is 'm' will return just 'minecraft')

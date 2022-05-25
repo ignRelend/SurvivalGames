@@ -23,11 +23,11 @@ public class BlocksListener implements Listener {
             if (plugin.getManager().getGameState() == GameState.WAITING || plugin.getManager().getGameState() == GameState.COUNTDOWN) {
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(Util.color("&cThe game has not started yet!"));
+            } else if (!plugin.getManager().getBlockManager().canBreak(event.getBlock().getType())) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(Util.color("&cYou cannot break this block!"));
             } else {
-                if (!plugin.getManager().getBlockManager().canBreak(event.getBlock().getType())) {
-                    event.setCancelled(true);
-                    event.getPlayer().sendMessage(Util.color("&cYou cannot break this block!"));
-                }
+                plugin.getManager().getBlockManager().getBrockenBlocks().put(event.getBlock().getLocation(), event.getBlock().getType());
             }
         }
     }
@@ -38,13 +38,12 @@ public class BlocksListener implements Listener {
             if (plugin.getManager().getGameState() == GameState.WAITING || plugin.getManager().getGameState() == GameState.COUNTDOWN) {
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(Util.color("&cThe game has not started yet!"));
+            } else if (!plugin.getManager().getBlockManager().canPlace(event.getBlock().getType())) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(Util.color("&cYou cannot place this block!"));
             } else {
-                if (!plugin.getManager().getBlockManager().canPlace(event.getBlock().getType())) {
-                    event.setCancelled(true);
-                    event.getPlayer().sendMessage(Util.color("&cYou cannot place this block!"));
-                }
+                plugin.getManager().getBlockManager().getPlacedBlocks().put(event.getBlock().getLocation(), event.getBlock().getType());
             }
         }
     }
-
 }

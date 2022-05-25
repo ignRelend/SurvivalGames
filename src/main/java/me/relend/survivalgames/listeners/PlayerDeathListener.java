@@ -33,19 +33,13 @@ public class PlayerDeathListener implements Listener {
                 Util.broadcastAll(Util.color("&c" + event.getEntity().getName() + " &7has died!"));
             }
         }
-        if (plugin.getManager().getAlive().size() == 1) {
+        if (plugin.getManager().getAlive().size() <= 1) {
             plugin.getManager().setGameState(GameState.FINISH);
             Util.sendTitleAll("&c&lGAME OVER", "Better luck next time!", 5, 70, 5);
-            Player winner = plugin.getManager().getAlive().get(0);
-            winner.sendTitle(Util.color("&6&lVICTORY"), "You were the last one standing!", 5, 70, 5);
-
-            BukkitTask reset = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    plugin.getManager().setGameState(GameState.RESETTING);
-                }
-            }.runTaskLater(plugin, 100);
-
+            if (plugin.getManager().getAlive().get(0) != null) {
+                Player winner = plugin.getManager().getAlive().get(0);
+                winner.sendTitle(Util.color("&6&lVICTORY"), "You were the last one standing!", 5, 70, 5);
+            }
         }
     }
 

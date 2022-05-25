@@ -99,7 +99,7 @@ public class Util {
         } else {
             // game is already running / add to spectator
             plugin.getManager().getSpectators().add(player);
-            player.sendMessage(Util.color("&cThere is not enough room for you! You are now a spectator."));
+            player.sendMessage(Util.color("&cThe game has already started! You are now a spectator."));
             player.setGameMode(GameMode.SPECTATOR);
             resetPlayerStats(player);
             return false;
