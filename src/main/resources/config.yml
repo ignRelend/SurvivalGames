@@ -3,6 +3,7 @@
 #-------------------------#
 
 arena:
+  world: "world"
   spawnpoints:
     - "268.5;26;-0.5;world"
   chests:

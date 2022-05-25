@@ -2,21 +2,26 @@ package me.relend.survivalgames.manager;
 
 import me.relend.survivalgames.SurvivalGames;
 import me.relend.survivalgames.util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Chest;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
+import org.bukkit.boss.KeyedBossBar;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GameManager {
 
     private GameState gameState;
     private final BlockManager blockManager;
+    private final KillManager killManager;
     private final SurvivalGames plugin;
 
     private ArrayList<Player> alive = new ArrayList<>();
@@ -28,14 +33,10 @@ public class GameManager {
         this.plugin = plugin;
         gameState = GameState.WAITING;
         blockManager = new BlockManager();
+        killManager = new KillManager();
     }
 
     public void setGameState(GameState newGameState) {
-        if (this.gameState == GameState.WAITING && gameState == GameState.COUNTDOWN) return;
-        if (this.gameState == GameState.COUNTDOWN && gameState == GameState.IN_GAME) return;
-        if (this.gameState == GameState.IN_GAME && gameState == GameState.FINISH) return;
-        if (this.gameState == GameState.FINISH && gameState == GameState.RESETTING) return;
-        if (this.gameState == GameState.RESETTING && gameState == GameState.WAITING) return;
 
         this.gameState = newGameState;
         switch (newGameState) {
@@ -44,6 +45,10 @@ public class GameManager {
                 // give new players kit selector
                 break;
             case COUNTDOWN:
+                BossBar bossBar = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
+                for (Player p : getAlive()) {
+                    bossBar.addPlayer(p);
+                }
                 BukkitTask countdown = new BukkitRunnable() {
                     int count = 30;
                     final int[] message = {30, 15, 10, 5, 3, 2, 1};
@@ -51,7 +56,10 @@ public class GameManager {
                     @Override
                     public void run() {
                         for (int item : message) {
+                            bossBar.setTitle(Util.color("&aStarting in &2" + count));
+                            bossBar.setProgress(count / (message[0] * 1.0));
                             if (item == count) {
+
                                 if (item == 3) {
                                     Util.sendTitleAll("&a3", "", 3, 14, 3);
                                 } else if (item == 2) {
@@ -70,9 +78,15 @@ public class GameManager {
                                 setGameState(GameState.WAITING);
                                 Util.broadcastAll(Util.color("&c&lNot enough players to start!"));
                             }
+                            for (Player p : bossBar.getPlayers()) {
+                                bossBar.removePlayer(p);
+                            }
                             cancel();
                         }
                         if (timerCancelled) {
+                            for (Player p : bossBar.getPlayers()) {
+                                bossBar.removePlayer(p);
+                            }
                             cancel();
                         }
                         count--;
@@ -119,6 +133,12 @@ public class GameManager {
                 for (Location loc : getBlockManager().getBrockenBlocks().keySet()) {
                     loc.getBlock().setType(getBlockManager().getBrockenBlocks().get(loc));
                 }
+                for (Entity entity : Bukkit.getWorld(plugin.getConfig().getString("arena.world")).getEntities()) {
+                    if (entity instanceof Item) {
+                        entity.remove();
+                    }
+                }
+
                 plugin.getServer().shutdown();
                 break;
         }
@@ -126,6 +146,10 @@ public class GameManager {
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public KillManager getKillManager() {
+        return killManager;
     }
 
     public BlockManager getBlockManager() {

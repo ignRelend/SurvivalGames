@@ -28,7 +28,8 @@ public class PlayerDeathListener implements Listener {
             plugin.getManager().getAlive().remove(event.getEntity());
             event.getEntity().setGameMode(GameMode.SPECTATOR);
             if (event.getEntity().getKiller() != null) {
-                Util.broadcastAll(Util.color("&a" + event.getEntity().getKiller().getName() + " &7has killed &c" + event.getEntity().getName() + "&7!"));
+                plugin.getManager().getKillManager().addKill(event.getEntity().getKiller(), event.getEntity());
+                Util.broadcastAll(Util.color("&a" + event.getEntity().getKiller().getName() + " &7has killed &c" + event.getEntity().getName() + "&7!" + " (&f" + plugin.getManager().getKillManager().getKillsFor(event.getEntity().getKiller()).size() + "&7)"));
             } else {
                 Util.broadcastAll(Util.color("&c" + event.getEntity().getName() + " &7has died!"));
             }
