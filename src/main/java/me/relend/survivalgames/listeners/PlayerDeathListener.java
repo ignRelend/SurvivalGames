@@ -36,10 +36,10 @@ public class PlayerDeathListener implements Listener {
         if (plugin.getManager().getAlive().size() <= 1) {
             plugin.getManager().setGameState(GameState.FINISH);
             Util.sendTitleAll("&c&lGAME OVER", "Better luck next time!", 5, 70, 5);
-            if (plugin.getManager().getAlive().get(0) != null) {
+            try {
                 Player winner = plugin.getManager().getAlive().get(0);
                 winner.sendTitle(Util.color("&6&lVICTORY"), "You were the last one standing!", 5, 70, 5);
-            }
+            } catch (Exception ignored) {}
         }
     }
 
