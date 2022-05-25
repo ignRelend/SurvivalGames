@@ -8,6 +8,7 @@
 - Kits
 - Perks(?)
 - Coins system for kits and perks
+- Grace Period
 
 ## Features:
 - Commands to add chests and spawnpoints
